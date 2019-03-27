@@ -12,16 +12,14 @@ public class TestEliminarCliente {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 	ClienteABM a = new ClienteABM();
-	Session session = HibernateUtil.getSessionFactory().openSession();
-
 	
 	try {
-	a.eliminar(2);
+	a.eliminar(1);
 	}
 	catch(Exception e) {
 		System.out.println(e.getMessage());
 	} finally {
-		session.getSessionFactory().close();
+		HibernateUtil.getSessionFactory().close();
 	}
 	}
 

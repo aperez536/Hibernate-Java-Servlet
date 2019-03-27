@@ -15,9 +15,9 @@ public class TestActualizarCliente {
 		Cliente c=abm.traerCliente(id);
 		System. out .println( "Cliente a Modificar -->" +c);
 		// modificar por set los atributos
-		
+		c.setDni(123456789);
 	
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		
 
 		try {
 			abm.modificar(c); //update del objeto
@@ -25,7 +25,7 @@ public class TestActualizarCliente {
 		catch(Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
-			session.getSessionFactory().close();
+			HibernateUtil.getSessionFactory().close();
 		}
 	
 		}

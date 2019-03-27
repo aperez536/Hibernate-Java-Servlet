@@ -14,10 +14,9 @@ public class TestAgregarCliente {
 		int documento=35000000;
 		GregorianCalendar fechaDeNacimiento=new GregorianCalendar(1995,04,22);
 		*/
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		String apellido="Përez";
-		String nombre="Alan";
-		int documento=123456789;
+		String apellido="Ruina";
+		String nombre="Oscar";
+		int documento=35639606;
 		GregorianCalendar fechaDeNacimiento=new GregorianCalendar(1995,04,22);
 		ClienteABM abm=new ClienteABM();
 		try {
@@ -26,7 +25,7 @@ public class TestAgregarCliente {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
-			session.getSessionFactory().close();
+			 HibernateUtil.getSessionFactory().close();
 		}
 	}
 }

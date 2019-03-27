@@ -35,9 +35,8 @@ public class ClienteABM {
 	}
 	
 	public void modificar(Cliente c) throws Exception{
-		/*if(traerCliente(c.getDni()).getDni()==c.getDni()) throw new Exception("Ya existe el cliente con dni: "+c.getDni());
-		if(traerCliente(c.getIdCliente()).getIdCliente()==c.getIdCliente()) throw new Exception("Ya existe el cliente con id: "+c.getIdCliente());
-		*/
+		
+		if(dao.traerCliente(c.getDni()) != null) throw new Exception(" ya existe este dni ");
 		Cliente a = dao.traerCliente(c.getDni());
 		
 		if(a.equals(c)) throw new Exception("El id o el dni ya existe");

@@ -98,7 +98,7 @@ public class ClienteDao {
 	List<Cliente> lista=null;
 	try {
 		iniciaOperacion();
-		lista=session.createQuery("from Cliente c order by c.apellido asc c.nombre").list();
+		lista=session.createQuery("from Cliente c order by c.apellido asc, c.nombre desc").list();
 	}
 	finally {
 		session.close();
