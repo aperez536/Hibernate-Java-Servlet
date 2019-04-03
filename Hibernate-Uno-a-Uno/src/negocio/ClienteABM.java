@@ -9,44 +9,48 @@ public class ClienteABM {
 	
 	public Cliente traerCliente(long idCliente) throws Exception {
 		Cliente c= dao.traerCliente(idCliente);
-		if(c==null) throw new Exception("ERROR no existe el cliente con id: "+ idCliente);
 		return c;
 	}
 	
-	public Cliente traerCliente(int dni)  {
+	public Cliente traerCliente(int dni){
 		Cliente c=dao.traerCliente(dni);
-		//if(c==null) throw new Exception("ERROR no existe el cliente con dni: "+ dni);
 		return c;
 	}
 	
 	public int agregar(String apellido,String nombre, int dni,GregorianCalendar fechaDeNacimiento) throws Exception{
 
 		Cliente c = dao.traerCliente(dni);
-		if ( c != null) {
+		
+		if ( c!= null) {
 			throw new Exception("Ya existe el cliente");
-			
 		}
-		Cliente b = new Cliente();
-		b.setApellido(apellido);
-		b.setNombre(nombre);
-		b.setDni(dni);
-		b.setFechaDeNacimiento(fechaDeNacimiento);
+		
+		Cliente b = new Cliente(apellido, nombre, dni, fechaDeNacimiento);
 		return dao.agregar(b);
 	}
 	
 	public void modificar(Cliente c) throws Exception{
+		
 		Cliente a = dao.traerCliente(c.getDni());
-		if(a != null) throw new Exception(" ya existe este dni ");
+		
+		if( a != null){
+			throw new Exception("El id o el dni ya existe"); 
+			//Si es diferente a NULL, significa que ya existe alguien con el dni igual
+		}
 		
 		dao.actualizar(c);
+		
 	}
 	
-	public void eliminar(long idCliente)throws Exception {
+	public void eliminar(long idCliente) throws Exception {
+		
 		Cliente c=dao.traerCliente(idCliente);
-		if(c == null) throw new Exception ("no existe el cliente a eliminar");
+		if( c == null) throw new Exception("El cliente no existe");
+		//si devuelve NULL significa que no existe
 		dao.eliminar(c);
 	}
 	
-	public List<Cliente>traerCliente(){return dao.traerCliente();
+	public List<Cliente>traerCliente(){
+		return dao.traerCliente();
 	}
 }
