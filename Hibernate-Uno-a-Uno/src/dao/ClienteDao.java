@@ -5,8 +5,24 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import datos.Cliente;
+import negocio.ClienteABM;
 
 public class ClienteDao {
+	private static ClienteDao dao;
+	//
+	protected ClienteDao() {
+		this.inicializar();
+	}
+	
+	public static ClienteDao getIntanciaClienteDao() {
+		if(dao==null) {
+			dao=new ClienteDao();
+		}
+		return dao;
+	}
+	
+	private void inicializar() {}
+	
 	private static Session session;
 	private Transaction tx;
 
@@ -61,7 +77,7 @@ public class ClienteDao {
 		}
 	}
 
-	public Cliente traerCliente(long idCliente) throws HibernateException {
+	public Cliente traer(long idCliente) throws HibernateException {
 		Cliente objeto = null;
 		try {
 			iniciaOperacion();
@@ -72,11 +88,11 @@ public class ClienteDao {
 		return objeto;
 	}
 
-	public Cliente traerCliente(int dni) throws HibernateException {
+	public Cliente traer(int dni) throws HibernateException {
 		Cliente objeto = null;
 		try {
 			iniciaOperacion();
-			objeto = (Cliente) session.createQuery("from Cliente c where c.dni =" + dni).uniqueResult();
+			objeto = (Cliente) session.createQuery("from Cliente c where c.dni=" + dni).uniqueResult();
 		} finally {
 			session.close();
 		}
@@ -84,7 +100,7 @@ public class ClienteDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Cliente> traerCliente() throws HibernateException {
+	public List<Cliente> traer() throws HibernateException {
 		List<Cliente> lista = null;
 		try {
 			iniciaOperacion();

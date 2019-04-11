@@ -1,14 +1,25 @@
-//Creamos en el ContactoDao quedan para implementar los métodos modificar y eliminar.
 package dao;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
-import datos.Cliente;
 import datos.Contacto;
 
 public class ContactoDao {
+	private static ContactoDao dao;
+	//
+	protected ContactoDao() {
+		this.inicializar();
+	}
+	
+	public static ContactoDao getIntanciaContactoDao() {
+		if(dao==null) {
+			dao=new ContactoDao();
+		}
+		return dao;
+	}
+	private void inicializar() {}
+	
 	private static Session session;
 	private Transaction tx;
 
@@ -36,6 +47,18 @@ public class ContactoDao {
 		}
 		return id;
 	}
+
+	public Contacto traer(long idContacto) throws HibernateException {
+		Contacto objeto = null;
+		try {
+			iniciaOperacion();
+			objeto = (Contacto) session.get(Contacto.class, idContacto);
+		} finally {
+			session.close();
+		}
+		return objeto;
+	}
+
 	public void actualizar(Contacto objeto) throws HibernateException {
 		try {
 			iniciaOperacion();
@@ -49,7 +72,7 @@ public class ContactoDao {
 		}
 	}
 
-	public void eliminar(Contacto objeto) throws HibernateException {
+	public void eliminar(Contacto objeto) {
 		try {
 			iniciaOperacion();
 			session.delete(objeto);
@@ -61,16 +84,4 @@ public class ContactoDao {
 			session.close();
 		}
 	}
-
-	public Contacto traer(long idContacto) throws HibernateException {
-		Contacto objeto = null;
-		try {
-			iniciaOperacion();
-			objeto = (Contacto) session.get(Contacto.class, idContacto);
-		} finally {
-			session.close();
-		}
-		return objeto;
-	}
-
 }

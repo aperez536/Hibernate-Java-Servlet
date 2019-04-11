@@ -1,56 +1,59 @@
 package negocio;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 import  java.util.List;
 import dao.ClienteDao;
 import datos.Cliente;
 
 public class ClienteABM {
-	ClienteDao dao=new ClienteDao();
-	
-	public Cliente traerCliente(long idCliente) throws Exception {
-		Cliente c= dao.traerCliente(idCliente);
-		return c;
+	private static ClienteABM instanciaClienteABM;
+	//
+	protected ClienteABM() {
+		this.inicializar();
 	}
 	
-	public Cliente traerCliente(int dni){
-		Cliente c=dao.traerCliente(dni);
-		return c;
-	}
-	
-	public int agregar(String apellido,String nombre, int dni,GregorianCalendar fechaDeNacimiento) throws Exception{
-
-		Cliente c = dao.traerCliente(dni);
-		
-		if ( c!= null) {
-			throw new Exception("Ya existe el cliente");
+	public static ClienteABM getIntanciaClienteABM() {
+		if(instanciaClienteABM==null) {
+			instanciaClienteABM=new ClienteABM();
 		}
-		
-		Cliente b = new Cliente(apellido, nombre, dni, fechaDeNacimiento);
-		return dao.agregar(b);
+		return instanciaClienteABM;
+	}
+	
+	private void inicializar() {}
+	
+	public Cliente traer(long idCliente) throws Exception {
+		Cliente c= ClienteDao.getIntanciaClienteDao().traer(idCliente);
+		if(c==null) throw new Exception("ERROR no existe el cliente con id: "+ idCliente);
+		return c;
+	}
+	
+	public Cliente traer(int dni) throws Exception {
+		Cliente c=ClienteDao.getIntanciaClienteDao().traer(dni);
+		//if(c==null) throw new Exception("ERROR no existe el cliente con dni: "+ dni);
+		return c;
+	}
+	
+	public int agregar(String apellido,String nombre, int dni,LocalDate fechaDeNacimiento) throws Exception{
+		//if(traerCliente(dni)!=null) throw new Exception("ERROR ya existe el cliente con dni: "+dni);
+		Cliente c=new Cliente(apellido,nombre,dni,fechaDeNacimiento);
+		return ClienteDao.getIntanciaClienteDao().agregar(c);
 	}
 	
 	public void modificar(Cliente c) throws Exception{
-		
-		Cliente a = dao.traerCliente(c.getDni());
-		
-		if( a != null){
-			throw new Exception("El id o el dni ya existe"); 
-			//Si es diferente a NULL, significa que ya existe alguien con el dni igual
-		}
-		
-		dao.actualizar(c);
-		
+		//if(traerCliente(c.getDni()).getDni()==c.getDni()) throw new Exception("Ya existe el cliente con dni: "+c.getDni());
+		if(traer(c.getIdCliente()).getIdCliente()==c.getIdCliente()) throw new Exception("Ya existe el cliente con id: "+c.getIdCliente());
+		ClienteDao.getIntanciaClienteDao().actualizar(c);
 	}
 	
-	public void eliminar(long idCliente) throws Exception {
-		
-		Cliente c=dao.traerCliente(idCliente);
-		if( c == null) throw new Exception("El cliente no existe");
-		//si devuelve NULL significa que no existe
-		dao.eliminar(c);
+	public void eliminar(long idCliente) {
+		Cliente c=ClienteDao.getIntanciaClienteDao().traer(idCliente);
+		ClienteDao.getIntanciaClienteDao().eliminar(c);
 	}
 	
-	public List<Cliente>traerCliente(){
-		return dao.traerCliente();
+	public List<Cliente>traerCliente(){return ClienteDao.getIntanciaClienteDao().traer();
+	}
+
+	public Cliente traerClienteYContacto(long idCliente) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

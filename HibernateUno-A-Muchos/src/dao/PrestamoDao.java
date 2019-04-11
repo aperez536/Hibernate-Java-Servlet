@@ -8,6 +8,21 @@ import datos.Cliente;
 import datos.Prestamo;
 
 public class PrestamoDao {
+	private static PrestamoDao dao;
+	//
+	protected PrestamoDao() {
+		this.inicializar();
+	}
+	
+	public static PrestamoDao getIntanciaPrestamoDao() {
+		if(dao==null) {
+			dao=new PrestamoDao();
+		}
+		return dao;
+	}
+	
+	private void inicializar() {}
+	
 	private static Session session;
 	private Transaction tx;
 
@@ -20,12 +35,52 @@ public class PrestamoDao {
 		tx.rollback();
 		throw new HibernateException("ERROR en la capa de acceso a datos", he);
 	}
+	public int agregar(Prestamo objeto) {
+		int id = 0;
+		try {
+			iniciaOperacion();
+			id = Integer.parseInt(session.save(objeto).toString());
+			tx.commit();
+		} catch (HibernateException he) {
+			manejaExcepcion(he);
+			throw he;
+		} finally {
+			session.close();
+		}
+		return id;
+	}
 
+	public void actualizar(Prestamo objeto) throws HibernateException {
+		try {
+			iniciaOperacion();
+			session.update(objeto);
+			tx.commit();
+		} catch (HibernateException he) {
+			manejaExcepcion(he);
+			throw he;
+		} finally {
+			session.close();
+		}
+	}
+
+	public void eliminar(Prestamo objeto) throws HibernateException {
+		try {
+			iniciaOperacion();
+			session.delete(objeto);
+			tx.commit();
+		} catch (HibernateException he) {
+			manejaExcepcion(he);
+			throw he;
+		} finally {
+			session.close();
+		}
+	}
+	
 	public Prestamo traer(long idPrestamo) throws HibernateException {
 		Prestamo obj = null;
 		try {
 			iniciaOperacion();
-			String hQL = "from Prestamo p inner join fetch p.cliente c wherep.idPrestamo=" + idPrestamo;
+			String hQL = "from Prestamo p inner join fetch p.cliente c where p.idPrestamo=" + idPrestamo;
 			obj = (Prestamo) session.createQuery(hQL).uniqueResult();
 		} finally {
 			session.close();
@@ -38,7 +93,7 @@ public class PrestamoDao {
 		List<Prestamo> lista = null;
 		try {
 			iniciaOperacion();
-			String hQL = "from Prestamo p inner join fetch p.cliente c wherec.idCliente=" + c.getIdCliente();
+			String hQL = "from Prestamo p inner join fetch p.cliente c where c.idCliente=" + c.getIdCliente();
 			lista = session.createQuery(hQL).list();
 		} finally {
 			session.close();

@@ -1,6 +1,6 @@
 package datos;
 
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 import funciones.Funciones;
 
 public class Cliente {
@@ -8,14 +8,14 @@ public class Cliente {
 	private String apellido;
 	private String nombre;
 	private int dni;
-	private GregorianCalendar fechaDeNacimiento;
+	private LocalDate fechaDeNacimiento;
 	private boolean baja;
 	private Contacto contacto;
 
 	public Cliente() {
 	}
 
-	public Cliente(String apellido, String nombre, int dni, GregorianCalendar fechaDeNacimiento) {
+	public Cliente(String apellido, String nombre, int dni, LocalDate fechaDeNacimiento) {
 		super();
 		this.apellido = apellido;
 		this.nombre = nombre;
@@ -56,11 +56,11 @@ public class Cliente {
 		this.dni = dni;
 	}
 
-	public GregorianCalendar getFechaDeNacimiento() {
+	public LocalDate getFechaDeNacimiento() {
 		return fechaDeNacimiento;
 	}
 
-	public void setFechaDeNacimiento(GregorianCalendar fechaDeNacimiento) {
+	public void setFechaDeNacimiento(LocalDate fechaDeNacimiento) {
 		this.fechaDeNacimiento = fechaDeNacimiento;
 	}
 
@@ -80,7 +80,9 @@ public class Cliente {
 		this.contacto = contacto;
 	}
 
-	public String toString(){
-		return (idCliente+" "+apellido+" "+nombre+" DNI: "+dni+" F.de Nacimiento: "+Funciones.traerFechaCorta(fechaDeNacimiento)+" "+baja);
+// Desarrollar en la clase Funciones el método traerFechaCorta(LocalDate fecha )
+	public String toString() {
+		return (idCliente + " " + apellido + " " + nombre + " DNI: " + dni + " F.de Nacimiento:"
+				+ Funciones.traerFechaCorta(fechaDeNacimiento) + " " + baja);
 	}
 }

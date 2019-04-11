@@ -1,13 +1,13 @@
 package test;
 
-import dao.ClienteDao;
 import datos.Cliente;
+import negocio.ClienteABM;
 
 public class TestTraerClienteYContacto {
 	public static void main(String[] args) {
-		ClienteDao dao = new ClienteDao();
-		long idCliente = 2;
-		Cliente c = dao.traerClienteYContacto(idCliente);
+		ClienteABM abmCliente = ClienteABM.getIntanciaClienteABM();
+		long idCliente = 1;
+		Cliente c = abmCliente.traerClienteYContacto(idCliente);
 		System.out.println("\ntraer Cliente y contacto\n" + c + "\n" + c.getContacto());
 	}
 }
