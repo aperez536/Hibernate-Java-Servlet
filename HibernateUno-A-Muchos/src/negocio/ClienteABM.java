@@ -42,7 +42,7 @@ public class ClienteABM {
 	}
 
 	public void eliminar(long idCliente) throws Exception {
-		if(traer(idCliente) == null) throw new Exception("no existe el cliente a modificar");
+		if(traer(idCliente) == null) throw new Exception("no existe el cliente a eliminar");
 		Cliente c = ClienteDao.getIntanciaClienteDao().traer(idCliente);
 		ClienteDao.getIntanciaClienteDao().eliminar(c);
 	}

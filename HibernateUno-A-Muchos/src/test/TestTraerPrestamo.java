@@ -17,7 +17,7 @@ public class TestTraerPrestamo {
 //implementar Si este cliente no tiene prestamos otorgados imprima el mensaje
 		
 		ClienteABM abm = ClienteABM.getIntanciaClienteABM();
-		int dni = 14000000;
+		int dni = 35000000;
 		Cliente c = abm.traer(dni);
 		
 		System.out.println("\n---> TraerPrestamos del Cliente=" + c + "\n\n");

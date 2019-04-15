@@ -8,7 +8,7 @@ public class EliminarCliente {
 		// TODO Auto-generated method stub
 		ClienteABM abm = ClienteABM.getIntanciaClienteABM();
 		try {
-			abm.eliminar(1);
+			abm.eliminar(3);
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}finally {

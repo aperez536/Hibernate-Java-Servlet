@@ -36,11 +36,13 @@ public int agregarPrestamo(LocalDate fecha, double monto, double interes, int ca
 	Prestamo p = new Prestamo(fecha,monto,interes,cantCuotas,cliente);
 	return PrestamoDao.getIntanciaPrestamoDao().agregar(p);
 	}
-public void modificarPrestamo(Prestamo p) {
+public void modificarPrestamo(Prestamo p) throws Exception{
+	if(p == null) throw new Exception(" no existe el prestamo");
 	PrestamoDao.getIntanciaPrestamoDao().actualizar(p);
 }
 
-public void eliminarPrestamo(Prestamo p) {
+public void eliminarPrestamo(Prestamo p) throws Exception{
+	if(p == null) throw new Exception(" no existe el prestamo");
 	PrestamoDao.getIntanciaPrestamoDao().eliminar(p);
 }
 

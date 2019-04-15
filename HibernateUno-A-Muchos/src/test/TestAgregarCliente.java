@@ -8,7 +8,7 @@ public class TestAgregarCliente {
 		
 		String apellido = "tu apellido juan";
 		String nombre = "tu nombre juan";
-		int documento = 35000000;
+		int documento = 350000001;
 		// tu fecha de nacimiento
 		LocalDate fechaDeNacimiento = LocalDate.now();
 		ClienteABM abm = ClienteABM.getIntanciaClienteABM();
