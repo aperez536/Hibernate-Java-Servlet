@@ -21,7 +21,6 @@ public class PrestamoABM {
 		 
 	 }
 	public Prestamo traerPrestamo(long idPrestamo) {
-//Implementar: si el no existe el prestamo lanzar la excepción
 		Prestamo p = PrestamoDao.getIntanciaPrestamoDao().traer(idPrestamo);
 		return p;
 	}
