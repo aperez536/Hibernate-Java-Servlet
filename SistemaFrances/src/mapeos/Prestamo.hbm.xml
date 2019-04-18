@@ -14,8 +14,8 @@
 			column="idCliente" not-null="true" />
 		<set name="cuotas" cascade="save-update" table="cuota" order-by="nroCuota asc"
 			inverse="true" lazy="true" fetch="select">
-			<key column="nroCuota" not-null="true" />
-			<one-to-many class="datos.Cuota" />
+			<key column="idPrestamo" not-null="true" />
+			<one-to-many class="datos.Cuota"></one-to-many>
 		</set>
 	</class>
 </hibernate-mapping>

@@ -68,9 +68,9 @@ CREATE TABLE `prestamo` (
 --
 -- Dumping data for table `prestamo`
 --
-
+DROP TABLE IF EXISTS `cuota`;
 create table `cuota`(
-	`nroCuota` int not null auto_increment,
+	`nroCuota`int(11) NOT NULL AUTO_INCREMENT,
     `fechaVencimiento` datetime not null,
     `saldoPendiente` double not null,
     `amortizacion` double not null,
@@ -79,7 +79,11 @@ create table `cuota`(
     `deuda` double not null,
     `cancelada` bit(1),
     `fechaDePago` datetime not null,
-    `punitorios` double not null
+    `punitorios` double not null,
+    `idPrestamo` int not null,
+	PRIMARY KEY(`nroCuota`),
+	KEY `fkPrestamo_idx` (`nroCuota`),
+	CONSTRAINT `cuotas` FOREIGN KEY (`nroCuota`) REFERENCES `prestamo` (`idPrestamo`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 LOCK TABLES `prestamo` WRITE;

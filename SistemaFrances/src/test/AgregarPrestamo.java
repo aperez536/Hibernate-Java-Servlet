@@ -11,10 +11,10 @@ import dao.HibernateUtil;
 public class AgregarPrestamo {
 
 	public static void main(String[] args) {
-		long dni = 4;
+		long idCliente = 2;
 		ClienteABM cabm = ClienteABM.getIntanciaClienteABM();
 		PrestamoABM pabm = PrestamoABM.getIntanciaPrestamoABM();
-		Cliente c = cabm.traer(dni);
+		Cliente c = cabm.traer(idCliente);
 		try {
 		System.out.println(c);
 		pabm.agregarPrestamo(LocalDate.now(),101,50,7, c);
