@@ -70,7 +70,7 @@ CREATE TABLE `prestamo` (
 --
 DROP TABLE IF EXISTS `cuota`;
 create table `cuota`(
-	`nroCuota`int(11) NOT NULL AUTO_INCREMENT,
+	`nroCuota`int NOT NULL AUTO_INCREMENT,
     `fechaVencimiento` datetime not null,
     `saldoPendiente` double not null,
     `amortizacion` double not null,
